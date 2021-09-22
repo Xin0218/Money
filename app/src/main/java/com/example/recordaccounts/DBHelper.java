@@ -14,7 +14,6 @@ import java.util.HashMap;
 
 public class DBHelper extends SQLiteOpenHelper {
     private final static String _TableName = "TestSQL";
-    private final static String _TableName2 = "RyanSQL";
 
     public DBHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -28,22 +27,13 @@ public class DBHelper extends SQLiteOpenHelper {
                 "Type VARCHAR(50)," +
                 "Value VARCHAR(50))";
         db.execSQL(SQLTable);
-
-        String SQLTable2 = "CREATE TABLE IF NOT EXISTS " +
-                _TableName2 +
-                "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "Type VARCHAR(50)," +
-                "Value VARCHAR(50))";
-        db.execSQL(SQLTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         final String SQL = "DROP TABLE " + _TableName;
-        final String SQL2 = "DROP TABLE " + _TableName2;
 
         db.execSQL(SQL);
-        db.execSQL(SQL2);
     }
 
     //檢查資料表狀態
@@ -88,30 +78,17 @@ public class DBHelper extends SQLiteOpenHelper {
         db.insert(_TableName, null, values);
     }
 
-    //新增資料
-    public void addData2(String key, String value, String value2) {
-        Log.v("Ryan", "key: " + key + " /value: " + value);
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("type", key);
-        values.put("value", value);
-        values.put("describe", value2);
-        db.insert(_TableName2, null, values);
-    }
-
     //顯示所有資料
     public ArrayList<HashMap<String, String>> showAll() {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery(" SELECT * FROM " + _TableName2, null);
+        Cursor c = db.rawQuery(" SELECT * FROM " + _TableName, null);
         ArrayList<HashMap<String, String>> arrayList = new ArrayList<>();
         while (c.moveToNext()) {
             HashMap<String, String> hashMap = new HashMap<>();
             String key = c.getString(1);
             String price = c.getString(2);
-            String input = c.getString(3);
             hashMap.put("type", key);
             hashMap.put("value", price);
-            hashMap.put("describe", input);
             arrayList.add(hashMap);
         }
         return arrayList;

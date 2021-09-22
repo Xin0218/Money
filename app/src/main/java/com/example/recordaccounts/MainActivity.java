@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final String DB_NAME = "MyTest.db";
     private String TABLE_NAME = "MyTable";
     private final int DB_VERSION = 1;
-    private SQLiteDatabase db, db2;
-    DBHelper mDBHelper, mDBHelper2;
+    private SQLiteDatabase db;
+    DBHelper mDBHelper;
 
     private FragmentChoose choose;
     private FragmentMoney money;
@@ -75,9 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDBHelper = new DBHelper(this, DB_NAME, null, DB_VERSION);
-        mDBHelper2 = new DBHelper(this, DB_NAME, null, DB_VERSION);
         db = mDBHelper.getWritableDatabase();
-        db2 = mDBHelper2.getWritableDatabase();
 
         findView();
         initFragmentChoose();

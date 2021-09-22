@@ -35,11 +35,11 @@ public class TotalMoney extends Activity {
 
     public void DataValue() {
         ArrayList<HashMap<String, String>> List = new ArrayList<>();
-        List = MainActivity.GetInstance().mDBHelper2.showAll();
+        List = MainActivity.GetInstance().mDBHelper.showAll();
         Log.v(TAG, "DataValue List: " + List.size());
         Integer totoal = 0;
         for (int i = 0; i < List.size(); i++) {
-            totalContext.setText(totalContext.getText() + "\n" + "key: " + List.get(i).get("type") + " value: " + List.get(i).get("value") + "describe: " + List.get(i).get("describe"));
+            totalContext.setText(totalContext.getText() + "\n" + "key: " + List.get(i).get("type") + "  / value: " + List.get(i).get("value"));
             totoal += Integer.parseInt(List.get(i).get("value"));
         }
         Log.v(TAG, "DataValue totalMoney: " + totoal);

@@ -169,6 +169,7 @@ public class FragmentMoney extends DialogFragment implements View.OnClickListene
                 break;
             case R.id.btn_ac:
                 clear();
+                MainActivity.GetInstance().mDBHelper.delete();
                 break;
             case R.id.btn_ok:
                 save(v);
@@ -228,7 +229,6 @@ public class FragmentMoney extends DialogFragment implements View.OnClickListene
 
     public void putData(String key, Integer value, String value2) {
         MainActivity.GetInstance().mDBHelper.addData(key, value.toString());
-        MainActivity.GetInstance().mDBHelper.addData2(key, value.toString(), value2.toString());
 
         HashMap<String, List<String>> map = new HashMap<String, List<String>>(); //map + list
         List list = new ArrayList();
@@ -245,7 +245,6 @@ public class FragmentMoney extends DialogFragment implements View.OnClickListene
         for (Map temp : MainActivity.GetInstance().getArrayList()) {
             String key = temp.keySet().toString();
             String value = temp.values().toString();
-            String describe =
             saveMap.put(key, value);
             Log.v(TAG, "Ryan_showData KEY: " + temp.keySet() + " ,value: " + temp.values());
         }
